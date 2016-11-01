@@ -1,0 +1,14 @@
+﻿@model Exemplo02.Models.Aluno
+@{
+    ViewBag.Title = "Cadastro";
+}
+
+<h2>Cadastro</h2>
+@if (TempData["msg"]!=null)
+{
+    @TempData["msg"]
+}
+@using (Html.BeginForm()) {
+    @Html.EditorForModel()
+    <input type="submit" value="Enviar" />
+}

@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exemplo02", "Exemplo02\Exemplo02.csproj", "{3BD72682-7BC1-49E4-8308-2BEA87DA236E}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Fiap.Exemplo02.Database", "Fiap.Exemplo02.Database\Fiap.Exemplo02.Database.sqlproj", "{562D97E9-AB01-4BF9-B710-0E8CEFB61440}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BD72682-7BC1-49E4-8308-2BEA87DA236E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BD72682-7BC1-49E4-8308-2BEA87DA236E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BD72682-7BC1-49E4-8308-2BEA87DA236E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BD72682-7BC1-49E4-8308-2BEA87DA236E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{562D97E9-AB01-4BF9-B710-0E8CEFB61440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{562D97E9-AB01-4BF9-B710-0E8CEFB61440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{562D97E9-AB01-4BF9-B710-0E8CEFB61440}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{562D97E9-AB01-4BF9-B710-0E8CEFB61440}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{562D97E9-AB01-4BF9-B710-0E8CEFB61440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{562D97E9-AB01-4BF9-B710-0E8CEFB61440}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
