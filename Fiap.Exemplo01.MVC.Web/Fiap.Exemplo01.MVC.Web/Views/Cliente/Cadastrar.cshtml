@@ -5,12 +5,7 @@
 
 <h2>Cadastro de Cliente</h2>
 
-@if (TempData["msg"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["msg"]
-    </div>
-}
+@Helper.Message((String)TempData["msg"])
 
 @using (Html.BeginForm())
 {
@@ -40,6 +35,10 @@
         @Html.LabelFor(c => c.NecessidadesEspeciais)
     </div>
     <div class="form-group">
-        <input type="submit" value="Salvar" class="btn btn-primary" />
+        @Helper.Submit("enviar", "btn btn-primary")
     </div>
+}
+@section scripts
+{
+    <!--Scripts Aqui-->
 }
