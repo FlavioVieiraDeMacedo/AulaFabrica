@@ -1,0 +1,29 @@
+﻿@model Exemplo02.Models.Aluno
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(a=> a.Nome)
+        @Html.TextBoxFor(a=>a.Nome,new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(a => a.DataNascimento)
+        @Html.TextBoxFor(a => a.DataNascimento)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(a => a.Desconto)
+        @Html.TextBoxFor(a => a.Desconto)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(a => a.Bolsa)
+        @Html.TextBoxFor(a => a.Bolsa)
+    </div>
+    <div>
+        @Helper.Submit("Atualizar", "btn btn-primary")
+    </div>
+}

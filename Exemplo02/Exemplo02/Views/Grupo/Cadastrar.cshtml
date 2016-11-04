@@ -1,0 +1,39 @@
+﻿@model Exemplo02.Models.Grupo
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastrar</h2>
+@Helper.Message(TempData["msg"], "alert alert-success")
+@using (Html.BeginForm())
+{   
+    <h3>Grupo</h3>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Nome)
+        @Html.TextBoxFor(c => c.Nome, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Nota)
+        @Html.TextBoxFor(c => c.Nota, new { @class = "form-control" })
+    </div>
+    <h3>Projeto</h3>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Projeto.Nome)
+        @Html.TextBoxFor(c => c.Projeto.Nome, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Projeto.Descricao)
+        @Html.TextAreaFor(c => c.Projeto.Descricao, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Projeto.DataInicio)
+        @Html.TextBoxFor(c => c.Projeto.DataInicio, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Projeto.DataTermino)
+        @Html.TextBoxFor(c => c.Projeto.DataTermino, new { @class = "form-control" })
+    </div>
+    <div>
+        @Helper.Submit("Cadastrar", "btn btn-primary")
+    </div>
+}

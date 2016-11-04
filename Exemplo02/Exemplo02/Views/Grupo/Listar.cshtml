@@ -1,22 +1,22 @@
-﻿@model ICollection<Exemplo02.Models.Aluno>
+﻿@model ICollection<Exemplo02.Models.Grupo>
 @{
     ViewBag.Title = "Listar";
 }
 
 <h2>Listar</h2>
 @Helper.Message(TempData["msg"], "alert alert-success")
-@using (Html.BeginForm("Buscar","Aluno",FormMethod.Get,new { @class = "form-inline" }))
+@using (Html.BeginForm("Buscar", "Aluno", FormMethod.Get, new { @class = "form-inline" }))
 {
-    @Html.TextBox("nomeBusca","", new { @class ="form-control",placeholder="Digite um nome"})
-    @Helper.Submit("Buscar","btn btn-primary")
+    @Html.TextBox("nomeBusca", "", new { @class = "form-control", placeholder = "Digite um nome" })
+    @Helper.Submit("Buscar", "btn btn-primary")
 }
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>Nome</td>
-            <td>Data Nascimento</td>
-            <td>Bolsa</td>
-            <td>Desconto</td>
+            <td>Nome Grupo</td>
+            <td>Nota Grupo</td>
+            <td>Nome Projeto</td>
+            <td>Descriçao Projeto</td>
             <td></td>
         </tr>
     </thead>
@@ -26,9 +26,9 @@
         {
             <tr>
                 <td>@item.Nome</td>
-                <td>@item.DataNascimento</td>
-                <td>@item.Bolsa</td>
-                <td>@item.Desconto</td>
+                <td>@item.Nota</td>
+                <td>@item.Projeto.Nome</td>
+                <td>@item.Projeto.Descricao</td>
                 <td>
                     @Html.ActionLink("Editar", "Editar", new { id = @item.Id }, new { @class = "btn btn-primary" })
                     <button onclick="alunoId.value = @item.Id" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
@@ -36,7 +36,7 @@
                     </button>
                 </td>
             </tr>
-            }
+        }
     </tbody>
 </table>
 
@@ -54,7 +54,7 @@
             <div class="modal-footer">
                 @using (Html.BeginForm("Excluir", "Aluno"))
                 {
-                    <input type="hidden" id="alunoId" name="alunoId"/>
+                    <input type="hidden" id="alunoId" name="alunoId" />
                     <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
                     <button type="submit" class="btn btn-primary">Sim</button>
 
