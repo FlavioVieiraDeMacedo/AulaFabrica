@@ -13,17 +13,17 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(a => a.DataNascimento)
-        @Html.TextBoxFor(a => a.DataNascimento)
+        @Html.TextBoxFor(a => a.DataNascimento, new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.LabelFor(a => a.Desconto)
-        @Html.TextBoxFor(a => a.Desconto)
+        @Html.TextBoxFor(a => a.Desconto, new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.LabelFor(a => a.Bolsa)
-        @Html.TextBoxFor(a => a.Bolsa)
+        @Html.TextBoxFor(a => a.Bolsa, new { @class = "form-control" })
     </div>
     <div>
-        @Helper.Submit("Atualizar", "btn btn-primary")
+        @MeuHelper.Submit("Atualizar", "btn btn-primary")
     </div>
 }

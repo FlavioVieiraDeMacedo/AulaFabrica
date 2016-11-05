@@ -146,7 +146,7 @@
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
-    <Content Include="App_Code\Helper.cshtml" />
+    <Content Include="App_Code\MeuHelper.cshtml" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
@@ -210,6 +210,7 @@
     <Content Include="Views\Aluno\Editar.cshtml" />
     <Content Include="Views\Grupo\Cadastrar.cshtml" />
     <Content Include="Views\Grupo\Listar.cshtml" />
+    <Content Include="Views\Grupo\Editar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

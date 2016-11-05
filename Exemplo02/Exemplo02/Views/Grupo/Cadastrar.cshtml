@@ -4,7 +4,7 @@
 }
 
 <h2>Cadastrar</h2>
-@Helper.Message(TempData["msg"], "alert alert-success")
+@MeuHelper.Message(TempData["msg"], "alert alert-success")
 @using (Html.BeginForm())
 {   
     <h3>Grupo</h3>
@@ -34,6 +34,6 @@
         @Html.TextBoxFor(c => c.Projeto.DataTermino, new { @class = "form-control" })
     </div>
     <div>
-        @Helper.Submit("Cadastrar", "btn btn-primary")
+        @MeuHelper.Submit("Cadastrar", "btn btn-primary")
     </div>
 }

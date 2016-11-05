@@ -4,11 +4,27 @@
 }
 
 <h2>Cadastro</h2>
-@if (TempData["msg"]!=null)
+@if (TempData["msg"] != null)
 {
     @TempData["msg"]
 }
-@using (Html.BeginForm()) {
-    @Html.EditorForModel()
-    <input type="submit" value="Enviar" />
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(c => c.Nome)
+        @Html.TextBoxFor(c => c.Nome, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.DataNascimento)
+        @Html.TextBoxFor(c => c.DataNascimento, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Bolsa )
+        @Html.CheckBoxFor(c => c.Bolsa)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Desconto)
+        @Html.TextBoxFor(c => c.Desconto, new { @class = "form-control" })
+    </div>
+    @MeuHelper.Submit("Atualizar", "btn btn-primary")
 }

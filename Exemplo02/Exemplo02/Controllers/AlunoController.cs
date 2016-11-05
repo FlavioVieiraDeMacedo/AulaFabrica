@@ -36,8 +36,6 @@ namespace Exemplo02.Controllers
         public ActionResult Editar(int id)
         {
             var aluno = _context.Aluno.Find(id);
-
-
             return View(aluno);
         }
         public ActionResult Editar(Aluno aluno)

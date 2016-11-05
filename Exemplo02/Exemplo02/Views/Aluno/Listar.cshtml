@@ -4,11 +4,11 @@
 }
 
 <h2>Listar</h2>
-@Helper.Message(TempData["msg"], "alert alert-success")
+@MeuHelper.Message(TempData["msg"], "alert alert-success")
 @using (Html.BeginForm("Buscar","Aluno",FormMethod.Get,new { @class = "form-inline" }))
 {
     @Html.TextBox("nomeBusca","", new { @class ="form-control",placeholder="Digite um nome"})
-    @Helper.Submit("Buscar","btn btn-primary")
+    @MeuHelper.Submit("Buscar","btn btn-primary")
 }
 <table class="table table-striped">
     <thead>
