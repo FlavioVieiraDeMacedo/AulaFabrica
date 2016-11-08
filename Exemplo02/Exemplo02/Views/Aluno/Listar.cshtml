@@ -17,6 +17,7 @@
             <td>Data Nascimento</td>
             <td>Bolsa</td>
             <td>Desconto</td>
+            <td>Grupo</td>
             <td></td>
         </tr>
     </thead>
@@ -29,6 +30,7 @@
                 <td>@item.DataNascimento</td>
                 <td>@item.Bolsa</td>
                 <td>@item.Desconto</td>
+                <td>@item.Grupo.Nome</td>
                 <td>
                     @Html.ActionLink("Editar", "Editar", new { id = @item.Id }, new { @class = "btn btn-primary" })
                     <button onclick="alunoId.value = @item.Id" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">

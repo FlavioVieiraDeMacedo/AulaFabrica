@@ -19,9 +19,14 @@
         @Html.TextBoxFor(c => c.DataNascimento, new { @class = "form-control" })
     </div>
     <div class="form-group">
+        @Html.LabelFor(c => c.Grupo)
+        @Html.DropDownListFor(c=>c.GrupoId , ViewBag.grupos as SelectList ,"Selecione",new { @class = "form-control"})
+    </div>
+    <div class="form-group">
         @Html.LabelFor(c => c.Bolsa )
         @Html.CheckBoxFor(c => c.Bolsa)
     </div>
+    
     <div class="form-group">
         @Html.LabelFor(c => c.Desconto)
         @Html.TextBoxFor(c => c.Desconto, new { @class = "form-control" })
