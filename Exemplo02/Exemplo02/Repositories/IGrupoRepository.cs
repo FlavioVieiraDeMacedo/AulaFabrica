@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,6 @@ namespace Exemplo02.Repositories
         void Remover(int id);
         Aluno BuscarPorId(int Id);
         ICollection<Grupo> Listar();
-        //ICollection<Grupo> BuscarPor(Expression<Func<Grupo, bool>> filtro);
+        ICollection<Grupo> BuscarPor(Expression<Func<Grupo, bool>> filtro);
     }
 }

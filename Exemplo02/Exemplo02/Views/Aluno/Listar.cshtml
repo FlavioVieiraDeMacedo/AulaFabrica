@@ -5,10 +5,19 @@
 
 <h2>Listar</h2>
 @MeuHelper.Message(TempData["msg"], "alert alert-success")
-@using (Html.BeginForm("Buscar","Aluno",FormMethod.Get,new { @class = "form-inline" }))
+@using (Html.BeginForm("Buscar", "Aluno", FormMethod.Get, new { @class = "form-inline" }))
 {
-    @Html.TextBox("nomeBusca","", new { @class ="form-control",placeholder="Digite um nome"})
-    @MeuHelper.Submit("Buscar","btn btn-primary")
+    <div class="row">
+        <div class="col-md-3">
+            @Html.TextBox("nomeBusca", "", new { @class = "form-control", placeholder = "Digite um nome" })
+        </div>
+        <div class="col-md-3">
+            @Html.DropDownList("idGrupo", ViewBag.grupos as SelectList, "Selecione um Grupo", new { @class = "form-control" })
+        </div>
+        <div class="col-md-3">
+            @MeuHelper.Submit("Filtrar", "btn btn-primary")
+        </div>
+    </div>
 }
 <table class="table table-striped">
     <thead>
@@ -28,7 +37,7 @@
             <tr>
                 <td>@item.Nome</td>
                 <td>@item.DataNascimento</td>
-                <td>@item.Bolsa</td>
+                <td>@(item.Bolsa?"Sim":"Nao")</td>
                 <td>@item.Desconto</td>
                 <td>@item.Grupo.Nome</td>
                 <td>

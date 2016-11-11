@@ -13,6 +13,7 @@ namespace Exemplo02.Controllers
         //private PortalContext _context = new PortalContext();
         private UnitOfWork _unit = new UnitOfWork();
         // GET: Aluno
+        #region GET
         [HttpGet]
         public ActionResult Cadastro()
         {
@@ -20,6 +21,36 @@ namespace Exemplo02.Controllers
             ViewBag.grupos = new SelectList(lista, "Id", "Nome");
             return View();
         }
+        [HttpGet]
+        public ActionResult Listar()
+        {
+            var lista = _unit.AlunoRepository.Listar();
+            CarregarComboGrupos();
+            return View(lista);
+        }
+        [HttpGet]
+        public ActionResult Editar(int id)
+        {
+            var aluno = _unit.AlunoRepository.BuscarPorId(id);
+            return View(aluno);
+        }
+        [HttpGet]
+        public ActionResult Buscar(string nomeBusca, int? idGrupo)
+        {
+            ICollection<Aluno> lista;
+            if (idGrupo == null)
+            {
+                lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca));
+            }
+            else
+            {
+                lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) && a.GrupoId == idGrupo);
+            }
+            CarregarComboGrupos();
+            return View("Listar", lista);
+        }
+        #endregion
+        #region POST
         [HttpPost]
         public ActionResult Cadastro(Aluno a)
         {
@@ -29,25 +60,6 @@ namespace Exemplo02.Controllers
             return RedirectToAction("Cadastro");
 
         }
-        [HttpGet]
-        public ActionResult Listar()
-        {
-            var lista = _unit.AlunoRepository.Listar();
-            return View(lista);
-        }
-        [HttpGet]
-        public ActionResult Editar(int id)
-        {
-            var aluno = _unit.AlunoRepository.BuscarPorId(id);
-            return View(aluno);
-        }
-        public ActionResult Editar(Aluno aluno)
-        {
-            _unit.AlunoRepository.Atualizar(aluno);
-            _unit.Salvar();
-            TempData["msg"] = "Aluno atualizado";
-            return RedirectToAction("Listar");
-        }
         [HttpPost]
         public ActionResult Excluir(int alunoId)
         {
@@ -56,15 +68,27 @@ namespace Exemplo02.Controllers
             TempData["msg"] = "Aluno Deletado";
             return RedirectToAction("Listar");
         }
-        [HttpGet]
-        public ActionResult Buscar(string nomeBusca) {
-            var lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca));
-            return View("Listar",lista);
+        [HttpPost]
+        public ActionResult Editar(Aluno aluno)
+        {
+            _unit.AlunoRepository.Atualizar(aluno);
+            _unit.Salvar();
+            TempData["msg"] = "Aluno atualizado";
+            return RedirectToAction("Listar");
         }
+        #endregion
+        #region PRIVATE
+        private void CarregarComboGrupos()
+        {
+            ViewBag.grupos = new SelectList(_unit.GrupoRepository.Listar(), "Id", "Nome");
+        }
+        #endregion
+        #region DISPOSE
         protected override void Dispose(bool disposing)
         {
             _unit.Dispose();
             base.Dispose(disposing);
         }
+        #endregion
     }
 }
