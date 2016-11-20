@@ -1,5 +1,6 @@
 ﻿using Exemplo02.Models;
 using Exemplo02.UnitsOfWork;
+using Exemplo02.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,19 @@ namespace Exemplo02.Controllers
 {
     public class AlunoController : Controller
     {
-        //private PortalContext _context = new PortalContext();
+        
         private UnitOfWork _unit = new UnitOfWork();
-        // GET: Aluno
+        
         #region GET
         [HttpGet]
-        public ActionResult Cadastro()
+        public ActionResult Cadastro(string msg)
         {
-            var lista = _unit.GrupoRepository.Listar();
-            ViewBag.grupos = new SelectList(lista, "Id", "Nome");
-            return View();
+            var viewModel = new AlunoViewModel()
+            {
+                ListaGrupo = ListarGrupos(),
+                Mensagem = msg
+            };
+            return View(viewModel);
         }
         [HttpGet]
         public ActionResult Listar()
@@ -52,12 +56,27 @@ namespace Exemplo02.Controllers
         #endregion
         #region POST
         [HttpPost]
-        public ActionResult Cadastro(Aluno a)
+        public ActionResult Cadastro(AlunoViewModel alunoViewModel)
         {
-            _unit.AlunoRepository.Cadastrar(a);
+            var aluno = new Aluno()
+            {
+                Nome = alunoViewModel.Nome,
+                DataNascimento = alunoViewModel.DataNascimento,
+                Desconto = alunoViewModel.Desconto,
+                Id = alunoViewModel.Id,
+                GrupoId = alunoViewModel.GrupoId,
+                Bolsa = alunoViewModel.Bolsa
+            };
+
+            _unit.AlunoRepository.Cadastrar(aluno);
             _unit.Salvar();
-            TempData["msg"] = "Aluno cadastrado!";
-            return RedirectToAction("Cadastro");
+            var viewModel = new AlunoViewModel()
+            {
+                Mensagem = "Aluno cadastrado002",
+                ListaGrupo = ListarGrupos()
+
+            };
+            return RedirectToAction("Cadastro", new { msg = "Aluno Cadastrado001" });
 
         }
         [HttpPost]
@@ -78,10 +97,16 @@ namespace Exemplo02.Controllers
         }
         #endregion
         #region PRIVATE
-        private void CarregarComboGrupos()
+        private SelectList ListarGrupos()
         {
-            ViewBag.grupos = new SelectList(_unit.GrupoRepository.Listar(), "Id", "Nome");
+            var lista = _unit.GrupoRepository.Listar();
+            return new SelectList(lista, "Id", "Nome");
         }
+        /*private void CarregarComboGrupos()
+        {
+            //enviar para a tela os grupos para o "select"
+            ViewBag.grupos = new SelectList(_unit.GrupoRepository.Listar(), "Id", "Nome");
+        }*/
         #endregion
         #region DISPOSE
         protected override void Dispose(bool disposing)
