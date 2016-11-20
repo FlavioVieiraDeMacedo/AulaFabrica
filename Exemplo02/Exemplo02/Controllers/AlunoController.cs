@@ -71,7 +71,7 @@ namespace Exemplo02.Controllers
         [HttpPost]
         public ActionResult Editar(Aluno aluno)
         {
-            _unit.AlunoRepository.Atualizar(aluno);
+            _unit.AlunoRepository.Alterar(aluno);
             _unit.Salvar();
             TempData["msg"] = "Aluno atualizado";
             return RedirectToAction("Listar");

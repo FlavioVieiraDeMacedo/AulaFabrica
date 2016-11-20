@@ -14,7 +14,8 @@ namespace Exemplo02.Repositories
         protected DbSet<T> _dbSet;
         public GenericRepository(PortalContext context) {
             _context = context;
-            _dbSet = _context.Set<T>();        }
+            _dbSet = _context.Set<T>();
+        }
         public virtual void Alterar(T entidade)
         {
             _context.Entry(entidade).State = System.Data.Entity.EntityState.Modified;
