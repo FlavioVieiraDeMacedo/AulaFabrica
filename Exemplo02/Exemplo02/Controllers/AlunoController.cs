@@ -16,7 +16,7 @@ namespace Exemplo02.Controllers
         
         #region GET
         [HttpGet]
-        public ActionResult Cadastro(string msg)
+        public ActionResult Cadastrar(string msg)
         {
             var viewModel = new AlunoViewModel()
             {
@@ -56,7 +56,7 @@ namespace Exemplo02.Controllers
         #endregion
         #region POST
         [HttpPost]
-        public ActionResult Cadastro(AlunoViewModel alunoViewModel)
+        public ActionResult Cadastrar(AlunoViewModel alunoViewModel)
         {
             var aluno = new Aluno()
             {
@@ -69,6 +69,7 @@ namespace Exemplo02.Controllers
             };
 
             _unit.AlunoRepository.Cadastrar(aluno);
+           
             _unit.Salvar();
             var viewModel = new AlunoViewModel()
             {
@@ -76,7 +77,7 @@ namespace Exemplo02.Controllers
                 ListaGrupo = ListarGrupos()
 
             };
-            return RedirectToAction("Cadastro", new { msg = "Aluno Cadastrado001" });
+            return RedirectToAction("Cadastrar","Aluno", new { msg = "Aluno Cadastrado001" });
 
         }
         [HttpPost]

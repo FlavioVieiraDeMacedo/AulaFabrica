@@ -1,12 +1,13 @@
 ﻿@model Exemplo02.ViewModel.AlunoViewModel
 @{
-    ViewBag.Title = "Cadastro";
+    ViewBag.Title = "Cadastrar";
 }
 
-<h2>Cadastro</h2>
+<h2>Cadastrar</h2>
 @MeuHelper.Message(Model.Mensagem,"alert alert-success")
 @using (Html.BeginForm())
 {
+    <p>Modificado</p>
     <div class="form-group">
         @Html.LabelFor(c => c.Nome)
         @Html.TextBoxFor(c => c.Nome, new { @class = "form-control" })
