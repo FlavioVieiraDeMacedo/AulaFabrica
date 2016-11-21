@@ -1,13 +1,10 @@
-﻿@model Exemplo02.Models.Aluno
+﻿@model Exemplo02.ViewModels.AlunoViewModel
 @{
     ViewBag.Title = "Cadastro";
 }
 
 <h2>Cadastro</h2>
-@if (TempData["msg"] != null)
-{
-    @TempData["msg"]
-}
+@MeuHelper.Message(Model.Mensagem,"alert alert-success")
 @using (Html.BeginForm())
 {
     <div class="form-group">
@@ -19,8 +16,8 @@
         @Html.TextBoxFor(c => c.DataNascimento, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(c => c.Grupo)
-        @Html.DropDownListFor(c=>c.GrupoId , ViewBag.grupos as SelectList ,"Selecione",new { @class = "form-control"})
+        @Html.LabelFor(c => c.GrupoId)
+        @Html.DropDownListFor(c=>c.GrupoId , Model.ListaGrupo ,"Selecione",new { @class = "form-control"})
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.Bolsa )
@@ -31,5 +28,5 @@
         @Html.LabelFor(c => c.Desconto)
         @Html.TextBoxFor(c => c.Desconto, new { @class = "form-control" })
     </div>
-    @MeuHelper.Submit("Atualizar", "btn btn-primary")
+    @MeuHelper.Submit("Salvar", "btn btn-primary")
 }
