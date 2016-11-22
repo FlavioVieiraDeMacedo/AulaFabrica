@@ -194,7 +194,10 @@
     <Compile Include="Repositories\IProfessorRepository.cs" />
     <Compile Include="Repositories\ProfessorRepository.cs" />
     <Compile Include="UnitsOfWork\UnitOfWork.cs" />
-    <Compile Include="ViewModel\AlunoViewModel.cs" />
+
+    <Compile Include="ViewModels\AlunoViewModel.cs" />
+    <Compile Include="ViewModels\GrupoViewModel.cs" />
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

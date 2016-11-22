@@ -1,10 +1,10 @@
-﻿@model ICollection<Exemplo02.Models.Aluno>
+﻿@model Exemplo02.ViewModels.AlunoViewModel
 @{
     ViewBag.Title = "Listar";
 }
 
 <h2>Listar</h2>
-@MeuHelper.Message(TempData["msg"], "alert alert-success")
+@MeuHelper.Message(Model.Mensagem, "alert alert-success")
 @using (Html.BeginForm("Buscar", "Aluno", FormMethod.Get, new { @class = "form-inline" }))
 {
     <div class="row">
@@ -12,7 +12,7 @@
             @Html.TextBox("nomeBusca", "", new { @class = "form-control", placeholder = "Digite um nome" })
         </div>
         <div class="col-md-3">
-            @Html.DropDownList("idGrupo", ViewBag.grupos as SelectList, "Selecione um Grupo", new { @class = "form-control" })
+            @Html.DropDownList("idGrupo", Model.ListaGrupo, "Selecione um Grupo", new { @class = "form-control" })
         </div>
         <div class="col-md-3">
             @MeuHelper.Submit("Filtrar", "btn btn-primary")
@@ -32,7 +32,7 @@
     </thead>
     <tbody>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Alunos)
         {
             <tr>
                 <td>@item.Nome</td>
@@ -51,7 +51,7 @@
     </tbody>
 </table>
 
-
+<!--\/ modal do bootstrap \/-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

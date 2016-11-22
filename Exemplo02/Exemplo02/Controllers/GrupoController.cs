@@ -1,66 +1,106 @@
 ﻿using Exemplo02.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Exemplo02.UnitsOfWork;
+using Exemplo02.ViewModels;
 using System.Web.Mvc;
 
 namespace Exemplo02.Controllers
 {
     public class GrupoController : Controller
     {
-        private PortalContext _context = new PortalContext();
+        private UnitOfWork _unit = new UnitOfWork();
+        #region GET
         [HttpGet]
-        public ActionResult Cadastrar()
+        public ActionResult Cadastrar(string msg)
         {
-            return View();
+            var viewModel = new GrupoViewModel()
+            {
+                Mensagem = msg
+            };
+            return View(viewModel);
         }
-        [HttpPost]
-        public ActionResult Cadastrar(Grupo g)
-        {
-            _context.Grupo.Add(g);
-            _context.SaveChanges();
-            TempData["msg"] = "Grupo cadastrado!";
-            return RedirectToAction("Cadastrar");
-        }
-
         [HttpGet]
-        public ActionResult Listar()
+        public ActionResult Listar(string msg)
         {
-            var lista = _context.Grupo.ToList();
-            return View(lista);
+            var grupos = _unit.GrupoRepository.Listar();
+            var grupoViewModel = new GrupoViewModel()
+            {
+                Mensagem = msg,
+                Grupos = grupos
+            };
+            return View(grupoViewModel);
         }
         [HttpGet]
         public ActionResult Editar(int id)
         {
-            var grupo = _context.Grupo.Find(id);
-            return View(grupo);
-        }
-        [HttpPost]
-        public ActionResult Editar(Grupo grupo)
-        {
-            _context.Entry(grupo).State = System.Data.Entity.EntityState.Modified;
-            _context.Entry(grupo.Projeto).State = System.Data.Entity.EntityState.Modified;
-            _context.SaveChanges();
-            TempData["msg"] = "Grupo atualizado";
-            return RedirectToAction("Listar");
-        }
-        [HttpPost]
-        public ActionResult Excluir(int grupoId)
-        {
-            var grupo = _context.Grupo.Find(grupoId);
-
-            _context.Projeto.Remove(grupo.Projeto);
-            _context.Grupo.Remove(grupo);
-            _context.SaveChanges();
-            TempData["msg"] = "Grupo Deletado";
-            return RedirectToAction("Listar");
+            var grupo = _unit.GrupoRepository.BuscarPorId(id);
+            var grupoViewModel = ConverteEmGrupoView(grupo);
+            return View(grupoViewModel);
         }
         [HttpGet]
         public ActionResult Buscar(string nomeBusca)
         {
-            var lista = _context.Grupo.Where(a => a.Nome.Contains(nomeBusca) || a.Projeto.Nome.Contains(nomeBusca)).ToList();
+            var lista = _unit.GrupoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) || a.Projeto.Nome.Contains(nomeBusca));
+            var grupoViewModel = new GrupoViewModel()
+            {
+                Grupos = lista
+            };
             return View("Listar", lista);
         }
+        #endregion
+        #region POST
+        [HttpPost]
+        public ActionResult Cadastrar(GrupoViewModel GrupoViewModel)
+        {
+            Grupo grupo = ConverteEmGrupo(GrupoViewModel);
+            _unit.GrupoRepository.Cadastrar(grupo);
+            _unit.Salvar();
+            return RedirectToAction("Cadastrar", new { msg = "Grupo Cadastrado com sucesso!!" });
+        }
+
+        [HttpPost]
+        public ActionResult Editar(GrupoViewModel grupoViewModel)
+        {
+            var grupo = ConverteEmGrupo(grupoViewModel);
+            _unit.GrupoRepository.Alterar(grupo);
+            _unit.Salvar();
+            return RedirectToAction("Listar", new { msg = "Grupo Atualizado!!" });
+        }
+        [HttpPost]
+        public ActionResult Excluir(int grupoId)
+        {
+            _unit.GrupoRepository.Remover(grupoId);
+            _unit.Salvar();
+            return RedirectToAction("Listar", new { msg = "Grupo Deletado!!" });
+        }
+        #endregion
+        #region PRIVATE
+        private GrupoViewModel ConverteEmGrupoView(Grupo grupo)
+        {
+            return new GrupoViewModel()
+            {
+                Id = grupo.Id,
+                Nome = grupo.Nome,
+                Nota = grupo.Nota,
+                Projeto = grupo.Projeto
+            };
+        }
+        private static Grupo ConverteEmGrupo(GrupoViewModel GrupoViewModel)
+        {
+            return new Grupo()
+            {
+                Id = GrupoViewModel.Id,
+                Nome = GrupoViewModel.Nome,
+                Nota = GrupoViewModel.Nota,
+                Projeto = GrupoViewModel.Projeto
+            };
+        }
+        #endregion
+        #region DISPOSE
+        protected override void Dispose(bool disposing)
+        {
+            _unit.Dispose();
+            base.Dispose(disposing);
+        }
+        #endregion
     }
 }

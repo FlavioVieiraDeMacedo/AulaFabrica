@@ -1,4 +1,4 @@
-﻿@model Exemplo02.Models.Aluno
+﻿@model Exemplo02.ViewModels.AlunoViewModel
 @{
     ViewBag.Title = "Editar";
 }
@@ -14,6 +14,10 @@
     <div class="form-group">
         @Html.LabelFor(a => a.DataNascimento)
         @Html.TextBoxFor(a => a.DataNascimento, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.GrupoId)
+        @Html.DropDownListFor(c => c.GrupoId, Model.ListaGrupo, "Selecione", new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.LabelFor(a => a.Desconto)

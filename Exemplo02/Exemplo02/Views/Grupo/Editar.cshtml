@@ -1,4 +1,4 @@
-﻿@model Exemplo02.Models.Grupo
+﻿@model Exemplo02.ViewModels.GrupoViewModel
 @{
     ViewBag.Title = "Editar";
 }
@@ -7,8 +7,6 @@
 
 @using (Html.BeginForm())
 {
-
-
     @Html.HiddenFor(a => a.Id)
     @Html.HiddenFor(a => a.Projeto.Id)
     <div class="form-group">

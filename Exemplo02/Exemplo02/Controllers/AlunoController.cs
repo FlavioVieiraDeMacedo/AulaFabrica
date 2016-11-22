@@ -1,6 +1,7 @@
 ﻿using Exemplo02.Models;
+using Exemplo02.ViewModels;
 using Exemplo02.UnitsOfWork;
-using Exemplo02.ViewModel;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,9 @@ namespace Exemplo02.Controllers
         
         #region GET
         [HttpGet]
-        public ActionResult Cadastrar(string msg)
+
+        public ActionResult Cadastro(string msg)
+
         {
             var viewModel = new AlunoViewModel()
             {
@@ -25,59 +28,51 @@ namespace Exemplo02.Controllers
             };
             return View(viewModel);
         }
+
+
+
         [HttpGet]
         public ActionResult Listar()
         {
-            var lista = _unit.AlunoRepository.Listar();
-            CarregarComboGrupos();
-            return View(lista);
+            var viewModel = new AlunoViewModel()
+            {
+                ListaGrupo = ListarGrupos(),
+                Alunos = _unit.AlunoRepository.Listar()
+            };
+            return View(viewModel);
         }
         [HttpGet]
         public ActionResult Editar(int id)
         {
             var aluno = _unit.AlunoRepository.BuscarPorId(id);
-            return View(aluno);
+            AlunoViewModel viewModel = ConverteEmAlunoView(aluno);
+            return View(viewModel);
         }
+
+
+
         [HttpGet]
         public ActionResult Buscar(string nomeBusca, int? idGrupo)
         {
-            ICollection<Aluno> lista;
-            if (idGrupo == null)
+            var lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) && (a.GrupoId == idGrupo || idGrupo == null));
+            var viewModel = new AlunoViewModel()
             {
-                lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca));
-            }
-            else
-            {
-                lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) && a.GrupoId == idGrupo);
-            }
-            CarregarComboGrupos();
-            return View("Listar", lista);
+                ListaGrupo = ListarGrupos(),
+                Alunos = lista
+            };
+            return View("Listar", viewModel);
         }
         #endregion
         #region POST
         [HttpPost]
-        public ActionResult Cadastrar(AlunoViewModel alunoViewModel)
+
+        public ActionResult Cadastro(AlunoViewModel alunoViewModel)
         {
-            var aluno = new Aluno()
-            {
-                Nome = alunoViewModel.Nome,
-                DataNascimento = alunoViewModel.DataNascimento,
-                Desconto = alunoViewModel.Desconto,
-                Id = alunoViewModel.Id,
-                GrupoId = alunoViewModel.GrupoId,
-                Bolsa = alunoViewModel.Bolsa
-            };
-
+            var aluno = ConverteEmAluno(alunoViewModel);
             _unit.AlunoRepository.Cadastrar(aluno);
-           
             _unit.Salvar();
-            var viewModel = new AlunoViewModel()
-            {
-                Mensagem = "Aluno cadastrado002",
-                ListaGrupo = ListarGrupos()
+            return RedirectToAction("Cadastro", new { msg = "Aluno cadastradasso!" });
 
-            };
-            return RedirectToAction("Cadastrar","Aluno", new { msg = "Aluno Cadastrado001" });
 
         }
         [HttpPost]
@@ -85,23 +80,51 @@ namespace Exemplo02.Controllers
         {
             _unit.AlunoRepository.Remover(alunoId);
             _unit.Salvar();
-            TempData["msg"] = "Aluno Deletado";
             return RedirectToAction("Listar");
         }
         [HttpPost]
-        public ActionResult Editar(Aluno aluno)
+        public ActionResult Editar(AlunoViewModel alunoViewModel)
         {
+            Aluno aluno = ConverteEmAluno(alunoViewModel);
             _unit.AlunoRepository.Alterar(aluno);
             _unit.Salvar();
-            TempData["msg"] = "Aluno atualizado";
             return RedirectToAction("Listar");
         }
+
+
         #endregion
         #region PRIVATE
+
+        
         private SelectList ListarGrupos()
         {
             var lista = _unit.GrupoRepository.Listar();
             return new SelectList(lista, "Id", "Nome");
+        }
+        private static Aluno ConverteEmAluno(AlunoViewModel alunoViewModel)
+        {
+            return new Aluno()
+            {
+                Nome = alunoViewModel.Nome,
+                DataNascimento = alunoViewModel.DataNascimento,
+                Bolsa = alunoViewModel.Bolsa,
+                Desconto = alunoViewModel.Desconto,
+                GrupoId = alunoViewModel.GrupoId
+            };
+        }
+        private AlunoViewModel ConverteEmAlunoView(Aluno aluno)
+        {
+            return new AlunoViewModel()
+            {
+                ListaGrupo = ListarGrupos(),
+                Nome = aluno.Nome,
+                Bolsa = aluno.Bolsa,
+                Desconto = aluno.Desconto,
+                Id = aluno.Id,
+                GrupoId = aluno.GrupoId,
+                DataNascimento = aluno.DataNascimento
+            };
+
         }
         /*private void CarregarComboGrupos()
         {

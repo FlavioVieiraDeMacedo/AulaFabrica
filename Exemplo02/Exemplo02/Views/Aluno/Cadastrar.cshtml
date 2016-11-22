@@ -1,9 +1,13 @@
-﻿@model Exemplo02.ViewModel.AlunoViewModel
+
+﻿@model Exemplo02.ViewModels.AlunoViewModel
+
 @{
     ViewBag.Title = "Cadastrar";
 }
 
-<h2>Cadastrar</h2>
+
+<h2>Cadastro</h2>
+
 @MeuHelper.Message(Model.Mensagem,"alert alert-success")
 @using (Html.BeginForm())
 {
@@ -18,7 +22,9 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.GrupoId)
-        @Html.DropDownListFor(c=>c.GrupoId , Model.ListaGrupo as SelectList ,"Selecione",new { @class = "form-control"})
+
+        @Html.DropDownListFor(c=>c.GrupoId , Model.ListaGrupo ,"Selecione",new { @class = "form-control"})
+
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.Bolsa )
