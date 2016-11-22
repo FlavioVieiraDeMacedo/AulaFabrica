@@ -24,7 +24,8 @@ namespace Exemplo02.Controllers
             var viewModel = new AlunoViewModel()
             {
                 ListaGrupo = ListarGrupos(),
-                Mensagem = msg
+                Mensagem = msg,
+                DataNascimento = DateTime.Now
             };
             return View(viewModel);
         }
@@ -55,12 +56,13 @@ namespace Exemplo02.Controllers
         public ActionResult Buscar(string nomeBusca, int? idGrupo)
         {
             var lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) && (a.GrupoId == idGrupo || idGrupo == null));
-            var viewModel = new AlunoViewModel()
-            {
-                ListaGrupo = ListarGrupos(),
-                Alunos = lista
-            };
-            return View("Listar", viewModel);
+            //var viewModel = new AlunoViewModel()
+            //{
+            //   ListaGrupo = ListarGrupos(),
+            //    Alunos = lista
+            //};
+            return PartialView("_tabela", lista);
+            
         }
         #endregion
         #region POST

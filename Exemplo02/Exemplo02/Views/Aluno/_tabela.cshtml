@@ -1,0 +1,24 @@
+﻿@model List<Exemplo02.Models.Aluno>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Nome</td>
+        <td>@item.DataNascimento</td>
+        <td>@(item.Bolsa ? "Sim" : "Nao")</td>
+        <td>@item.Desconto</td>
+        <td>@item.Grupo.Nome</td>
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id = @item.Id}, new { @class = "btn btn-primary" })
+            <button onclick="alunoId.value = @item.Id" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                Excluir
+            </button>
+        </td>
+    </tr>
+}
+@if (Request.IsAjaxRequest())
+{
+    <script>
+        someBotao();
+    </script>
+}
+

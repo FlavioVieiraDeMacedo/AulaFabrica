@@ -1,0 +1,58 @@
+﻿@model Exemplo02.ViewModels.AlunoViewModel
+
+@{
+    ViewBag.Title = "Cadastro";
+}
+
+
+<h2>Cadastro</h2>
+
+@MeuHelper.Message(Model.Mensagem, "alert alert-success")
+@using (Html.BeginForm())
+{
+ 
+    <div class="form-group">
+        @Html.LabelFor(c => c.Nome)
+        @Html.TextBoxFor(c => c.Nome, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.DataNascimento)
+        @Html.TextBoxFor(c => c.DataNascimento, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.GrupoId)
+
+        @Html.DropDownListFor(c => c.GrupoId, Model.ListaGrupo, "Selecione", new { @class = "form-control" })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Bolsa)
+        @Html.CheckBoxFor(c => c.Bolsa)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Desconto)
+        @Html.TextBoxFor(c => c.Desconto, new { @class = "form-control" })
+    </div>
+    @MeuHelper.Submit("Salvar", "btn btn-primary")
+}
+@section scripts{
+    <script>
+        $().ready(function () {
+            if ($("#Bolsa").attr("checked")=="checked") {
+                $("#Desconto").parent().css("display","block");
+            }else {
+                $("#Desconto").parent().css("display","none");
+            }
+            $("#Bolsa").click(function () {
+
+                $("#Desconto").parent().slideToggle();
+                $("#Desconto").focus();
+            });
+            
+                $("#DataNascimento").datepicker();
+           
+        });
+    </script>
+
+}
