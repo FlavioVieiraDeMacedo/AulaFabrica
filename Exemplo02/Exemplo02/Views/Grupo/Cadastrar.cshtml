@@ -1,10 +1,10 @@
-﻿@model Exemplo02.Models.Grupo
+﻿@model Exemplo02.ViewModels.GrupoViewModel
 @{
     ViewBag.Title = "Cadastrar";
 }
 
 <h2>Cadastrar</h2>
-@MeuHelper.Message(TempData["msg"], "alert alert-success")
+@MeuHelper.Message(Model.Mensagem, "alert alert-success")
 @using (Html.BeginForm())
 {   
     <h3>Grupo</h3>

@@ -89,10 +89,7 @@ namespace Exemplo02.Controllers
 
         #endregion
         #region PRIVATE
-        private void CarregarComboGrupos()
-        {
-            ViewBag.grupos = new SelectList(_unit.GrupoRepository.Listar(), "Id", "Nome");
-        }
+        
         private SelectList ListarGrupos()
         {
             var lista = _unit.GrupoRepository.Listar();
