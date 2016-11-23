@@ -9,18 +9,18 @@ namespace Exemplo02.UnitsOfWork
         #region Fields
         private PortalContext _context = new PortalContext();
         private IGenericRepository<Aluno> _alunoRepository;
-        private IGenericRepository<Grupo> _grupoRepository;
+        private IGrupoRepository _grupoRepository;
         private IProfessorRepository _professorRepository;
         #endregion
         #region Gets
 
-        public IGenericRepository<Grupo> GrupoRepository
+        public IGrupoRepository GrupoRepository
         {
             get {
                 if (_grupoRepository == null)
                 {
 
-                    _grupoRepository = new GenericRepository<Grupo>(_context);
+                    _grupoRepository = new GrupoRepository(_context);
                 }
                 return _grupoRepository; }
         }

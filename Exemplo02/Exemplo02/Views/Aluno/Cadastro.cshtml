@@ -31,7 +31,6 @@
         @Html.LabelFor(c => c.Bolsa)
         @Html.CheckBoxFor(c => c.Bolsa)
     </div>
-
     <div class="form-group">
         @Html.LabelFor(c => c.Desconto)
         @Html.TextBoxFor(c => c.Desconto, new { @class = "form-control" })
@@ -43,11 +42,11 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.Cidade)
-        @Html.TextBoxFor(c => c.Cidade, new { @class = "form-control" })
+        @Html.TextBoxFor(c => c.Cidade, new { @class = "form-control" ,disabled = "disabled" })
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.Logradouro)
-        @Html.TextBoxFor(c => c.Logradouro, new { @class = "form-control" })
+        @Html.TextBoxFor(c => c.Logradouro, new { @class = "form-control", disabled = "disabled" })
     </div>
     @MeuHelper.Submit("Salvar", "btn btn-primary")
 }
@@ -55,6 +54,7 @@
     <script>
         $().ready(function () {
             /**/
+            
             if ($("#Bolsa").attr("checked")=="checked") {
                 $("#Desconto").parent().css("display","block");
             }else {

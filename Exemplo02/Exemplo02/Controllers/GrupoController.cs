@@ -44,7 +44,7 @@ namespace Exemplo02.Controllers
             {
                 Grupos = lista
             };
-            return View("Listar", lista);
+            return View("Listar", grupoViewModel);
         }
         #endregion
         #region POST
