@@ -107,6 +107,7 @@ namespace Exemplo02.Controllers
         {
             return new Aluno()
             {
+                Id=alunoViewModel.Id,
                 Nome = alunoViewModel.Nome,
                 DataNascimento = alunoViewModel.DataNascimento,
                 Bolsa = alunoViewModel.Bolsa,

@@ -11,6 +11,12 @@ namespace Exemplo02.ViewModels
 
         public string Mensagem { get; set; }
 
+        #region Localizacao
+        public string CEP { get; set; }
+        public string Logradouro { get; set; }
+        public string Cidade { get; set; }
+        #endregion
+
         #region Lista properties
         public ICollection<Aluno> Alunos { get; set; }
         public string NomeBusca { get; set; }
