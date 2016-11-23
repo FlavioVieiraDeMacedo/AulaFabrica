@@ -14,14 +14,17 @@
     <div class="form-group">
         @Html.LabelFor(c => c.Nome)
         @Html.TextBoxFor(c => c.Nome, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a=>a.Nome)
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.DataNascimento)
         @Html.TextBoxFor(c => c.DataNascimento, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.DataNascimento)
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.GrupoId)
         @Html.DropDownListFor(c => c.GrupoId, Model.ListaGrupo, "Selecione", new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.GrupoId)
 
     </div>
     <div class="form-group">
@@ -32,6 +35,7 @@
     <div class="form-group">
         @Html.LabelFor(c => c.Desconto)
         @Html.TextBoxFor(c => c.Desconto, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.Desconto)
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.CEP)

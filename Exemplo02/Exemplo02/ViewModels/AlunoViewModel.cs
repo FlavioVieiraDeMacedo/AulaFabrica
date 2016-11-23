@@ -1,6 +1,7 @@
 ﻿using Exemplo02.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace Exemplo02.ViewModels
@@ -25,10 +26,16 @@ namespace Exemplo02.ViewModels
 
         #region Aluno properties
         public int Id { get; set; }
+        [StringLength(100)]
+        [Required(ErrorMessage = "Nome é obrigatório")]
         public string Nome { get; set; }
+        [Display(Name ="Data de Nascimento")]
+        [Required(ErrorMessage = "Data é obrigatório")]
         public DateTime DataNascimento { get; set; }
         public Nullable<double> Desconto { get; set; }
         public bool Bolsa { get; set; }
+        [Display (Name ="Grupo")]
+        [Required(ErrorMessage = "Grupo é obrigatório")]
         public int GrupoId { get; set; }
         #endregion
     }

@@ -70,10 +70,20 @@ namespace Exemplo02.Controllers
 
         public ActionResult Cadastro(AlunoViewModel alunoViewModel)
         {
-            var aluno = ConverteEmAluno(alunoViewModel);
-            _unit.AlunoRepository.Cadastrar(aluno);
-            _unit.Salvar();
-            return RedirectToAction("Cadastro", new { msg = "Aluno cadastradasso!" });
+            if (ModelState.IsValid)
+            {
+                var aluno = ConverteEmAluno(alunoViewModel);
+                _unit.AlunoRepository.Cadastrar(aluno);
+                _unit.Salvar();
+                return RedirectToAction("Cadastro", new { msg = "Aluno cadastradasso!" });
+            }
+            else
+            {
+                alunoViewModel.ListaGrupo = ListarGrupos();
+                return View(alunoViewModel);
+            }
+            
+            
 
 
         }
