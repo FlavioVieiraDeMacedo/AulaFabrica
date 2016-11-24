@@ -1,0 +1,24 @@
+﻿@model Exemplo02.ViewModels.ProfessorViewModel
+@foreach (var item in Model.Professores)
+{
+    <tr>
+        <td>@item.Nome</td>
+        <td>@item.Salario</td>
+        <td>
+            <button onclick="Nome2.value = '@item.Nome',Salario2.value = '@item.Salario', Id.value = @item.Id" type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModalEditar">
+                Editar
+            </button>
+
+            <button onclick="professorId.value = @item.Id" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                Excluir
+            </button>
+        </td>
+    </tr>
+}
+@if (Request.IsAjaxRequest())
+{
+    <script>
+        someBotao();
+        
+    </script>
+}

@@ -210,6 +210,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
     <Compile Include="Controllers\GrupoController.cs" />
+    <Compile Include="Controllers\ProfessorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -250,6 +251,7 @@
     <Compile Include="UnitsOfWork\UnitOfWork.cs" />
     <Compile Include="ViewModels\AlunoViewModel.cs" />
     <Compile Include="ViewModels\GrupoViewModel.cs" />
+    <Compile Include="ViewModels\ProfessorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -276,6 +278,9 @@
     <Content Include="Views\Grupo\Editar.cshtml" />
     <Content Include="Views\Aluno\_tabela.cshtml" />
     <Content Include="Views\Grupo\_tabela.cshtml" />
+    <Content Include="Views\Professor\Cadastrar.cshtml" />
+    <Content Include="Views\Professor\_tabela.cshtml" />
+    <Content Include="Views\Professor\_editarModal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

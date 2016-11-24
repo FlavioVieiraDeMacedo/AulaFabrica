@@ -1,0 +1,122 @@
+﻿@model Exemplo02.ViewModels.ProfessorViewModel
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastrar</h2>
+@MeuHelper.Message(Model.Mensagem, "alert alert-success")
+@using (Html.BeginForm("Cadastrar", "Professor", FormMethod.Post, new { @class = "form-inline" }))
+{
+    <div class="form-group">
+        @Html.TextBoxFor(p => p.Nome, new { @class = "form-control", placeholder = "Nome" })
+    </div>
+    <div class="form-group">
+        @Html.TextBoxFor(p => p.Salario, new { @class = "form-control", placeholder = "Salario" })
+    </div>
+    @MeuHelper.Submit("Salvar", "btn btn-primary")
+}
+
+<!--listar-->
+<hr />
+@using (Ajax.BeginForm("Buscar", null, new AjaxOptions { HttpMethod = "get", UpdateTargetId = "tabela", InsertionMode = InsertionMode.Replace }, new { @class = "form-inline", id = "formularioBusca" }))
+{
+
+    <div class="form-group">
+        @Html.TextBox("nomeBusca", "", new { @class = "form-control", placeholder = "Filtrar pelo nome" })
+    </div>
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Nome</td>
+            <td>Salario</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody id="tabela">
+        @Html.Partial("_tabela", Model)
+
+    </tbody>
+</table>
+
+
+
+
+
+<!--\/ modal do bootstrap \/-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmação</h4>
+            </div>
+            <div class="modal-body">
+                Realmente dezeja apagar o aluno?
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Excluir", "Professor"))
+                {
+                    <input type="hidden" id="professorId" name="professorId" />
+                            <button type="submit" class="btn btn-primary">Sim</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--\/ modal do bootstrap 2 \/-->
+<div class="modal fade" id="myModalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editar Professor</h4>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("Editar", "Professor", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    <div class="form-group">
+                        @Html.TextBoxFor(p => p.Nome2, new { @class = "form-control", placeholder = "Nome2" })
+                    </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(p => p.Salario2, new { @class = "form-control", placeholder = "Salario2" })
+                            </div>
+                            @Html.HiddenFor(p => p.Id)
+                            @MeuHelper.Submit("Salvar Alteração", "btn btn-primary")
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                }
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        function someBotao() {
+            $("td > button , td > a").css("visibility", "hidden");
+
+            $("tr").hover(function () {
+                $(this).find("button,a").css("visibility", "visible");
+            }, function () {
+                $(this).find("button,a").css("visibility", "hidden");
+            });
+
+        }
+        $().ready(function () {
+            someBotao();
+
+
+            $("#nomeBusca").change(function () {
+                $("#formularioBusca").submit();
+            });
+        });
+    </script>
+}
