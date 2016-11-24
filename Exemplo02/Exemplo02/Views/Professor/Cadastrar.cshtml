@@ -3,7 +3,7 @@
     ViewBag.Title = "Cadastrar";
 }
 
-<h2>Cadastrar</h2>
+<h2>Professor</h2>
 @MeuHelper.Message(Model.Mensagem, "alert alert-success")
 @using (Html.BeginForm("Cadastrar", "Professor", FormMethod.Post, new { @class = "form-inline" }))
 {
@@ -13,7 +13,7 @@
     <div class="form-group">
         @Html.TextBoxFor(p => p.Salario, new { @class = "form-control", placeholder = "Salario" })
     </div>
-    @MeuHelper.Submit("Salvar", "btn btn-primary")
+    @MeuHelper.Submit("Cadastrar", "btn btn-primary")
 }
 
 <!--listar-->
