@@ -40,11 +40,11 @@ namespace Exemplo02.Controllers
         public ActionResult Buscar(string nomeBusca)
         {
             var lista = _unit.GrupoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) || a.Projeto.Nome.Contains(nomeBusca));
-            var grupoViewModel = new GrupoViewModel()
-            {
-                Grupos = lista
-            };
-            return View("Listar", grupoViewModel);
+            //var grupoViewModel = new GrupoViewModel()
+            //{
+            //   Grupos = lista
+            //};
+            return PartialView("_tabela", lista);
         }
         #endregion
         #region POST

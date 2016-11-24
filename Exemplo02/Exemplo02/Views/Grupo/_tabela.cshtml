@@ -1,0 +1,23 @@
+﻿@model List<Exemplo02.Models.Grupo>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Nome</td>
+        <td>@item.Nota</td>
+        <td>@item.Projeto.Nome</td>
+        <td>@item.Projeto.Descricao</td>
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id = @item.Id }, new { @class = "btn btn-primary" })
+            <button onclick="grupoId.value = @item.Id" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                Excluir
+            </button>
+        </td>
+    </tr>
+}
+@if (Request.IsAjaxRequest())
+{
+    <script>
+        someBotao();
+    </script>
+}

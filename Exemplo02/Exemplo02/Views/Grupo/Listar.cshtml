@@ -5,10 +5,9 @@
 
 <h2>Listar</h2>
 @MeuHelper.Message(Model.Mensagem, "alert alert-success")
-@using (Html.BeginForm("Buscar", "Grupo", FormMethod.Get, new { @class = "form-inline" }))
+@using (Ajax.BeginForm("Buscar", null, new AjaxOptions { HttpMethod = "get", UpdateTargetId = "tabela", InsertionMode = InsertionMode.Replace }, new { @class = "form-inline", id = "formularioBusca" }))
 {
-    @Html.TextBox("nomeBusca", "", new { @class = "form-control", placeholder = "Digite um nome" })
-    @MeuHelper.Submit("Buscar", "btn btn-primary")
+    @Html.TextBox("nomeBusca", "", new { @class = "form-control", placeholder = "Fitrar pelo nome" })
 }
 <table class="table table-striped">
     <thead>
@@ -20,23 +19,8 @@
             <td></td>
         </tr>
     </thead>
-    <tbody>
-
-        @foreach (var item in Model.Grupos)
-        {
-            <tr>
-                <td>@item.Nome</td>
-                <td>@item.Nota</td>
-                <td>@item.Projeto.Nome</td>
-                <td>@item.Projeto.Descricao</td>
-                <td>
-                    @Html.ActionLink("Editar", "Editar", new { id = @item.Id }, new { @class = "btn btn-primary" })
-                    <button onclick="grupoId.value = @item.Id" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
-                        Excluir
-                    </button>
-                </td>
-            </tr>
-        }
+    <tbody id="tabela">
+        @Html.Partial("_tabela", Model.Grupos)
     </tbody>
 </table>
 
@@ -64,3 +48,25 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        function someBotao() {
+            $("td > button , td > a").css("visibility", "hidden");
+
+            $("tr").hover(function () {
+                $(this).find("button,a").css("visibility", "visible");
+            }, function () {
+                $(this).find("button,a").css("visibility", "hidden");
+            });
+
+        }
+        $().ready(function () {
+            someBotao();
+
+            $("#nomeBusca").change(function () {
+              $("#formularioBusca").submit();
+            });
+        });
+    </script>
+}
