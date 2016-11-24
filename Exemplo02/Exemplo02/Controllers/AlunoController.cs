@@ -73,9 +73,18 @@ namespace Exemplo02.Controllers
             if (ModelState.IsValid)
             {
                 var aluno = ConverteEmAluno(alunoViewModel);
-                _unit.AlunoRepository.Cadastrar(aluno);
-                _unit.Salvar();
-                return RedirectToAction("Cadastro", new { msg = "Aluno cadastradasso!" });
+                if (VerificaNomeAlunoUnico(aluno.Nome))
+                {
+                    _unit.AlunoRepository.Cadastrar(aluno);
+                    _unit.Salvar();
+                    return RedirectToAction("Cadastro", new { msg = "Aluno cadastradasso!" });
+                }
+                else
+                {
+                    alunoViewModel.ListaGrupo = ListarGrupos();
+                    alunoViewModel.Mensagem = "Nome Já Cadastrado";
+                    return View(alunoViewModel);
+                }
             }
             else
             {
@@ -106,8 +115,22 @@ namespace Exemplo02.Controllers
 
         #endregion
         #region PRIVATE
+        private bool VerificaNomeAlunoUnico(string Nome)
+        {
+            var aluno =_unit.AlunoRepository.BuscarPor(a => a.Nome == Nome);
+            var cont = 0;
+            
+            foreach (var item in aluno)
+            {
+                if (item.Nome!=null)
+                {
+                    cont++;
+                }
+            }
+            return cont == 0 ? true : false;
+        }
 
-        
+
         private SelectList ListarGrupos()
         {
             var lista = _unit.GrupoRepository.Listar();
