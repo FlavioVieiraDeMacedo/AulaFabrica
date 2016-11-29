@@ -4,7 +4,7 @@ using System;
 
 namespace Exemplo02.UnitsOfWork
 {
-    class UnitOfWork : IDisposable
+    public class UnitOfWork : IDisposable
     {
         #region Fields
         private PortalContext _context = new PortalContext();

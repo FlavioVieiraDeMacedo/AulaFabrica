@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\alunoshift\Desktop\aula\AulaFabrica\Exemplo02\Exemplo02\Models\Banco.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\alunoshift\Desktop\AulaFabrica\Exemplo02\Fiap.Exemplo02.Dominio\Models\Banco.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

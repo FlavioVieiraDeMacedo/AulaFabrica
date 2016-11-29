@@ -14,8 +14,14 @@ namespace Exemplo02.Controllers
     {
         
         private UnitOfWork _unit = new UnitOfWork();
-        
+
         #region GET
+        [HttpGet]
+        public ActionResult ValidarNome(string nome)
+        {
+            var aluno = _unit.AlunoRepository.BuscarPor(a => a.Nome == nome);
+            return Json(new { existe = aluno.Any() },JsonRequestBehavior.AllowGet );
+        }
         [HttpGet]
 
         public ActionResult Cadastro(string msg)

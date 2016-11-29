@@ -10,11 +10,11 @@
 @MeuHelper.Message(Model.Mensagem, "alert alert-success")
 @using (Html.BeginForm())
 {
- 
+
     <div class="form-group">
         @Html.LabelFor(c => c.Nome)
         @Html.TextBoxFor(c => c.Nome, new { @class = "form-control" })
-        @Html.ValidationMessageFor(a=>a.Nome)
+        @Html.ValidationMessageFor(a => a.Nome)
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.DataNascimento)
@@ -42,7 +42,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.Cidade)
-        @Html.TextBoxFor(c => c.Cidade, new { @class = "form-control" ,disabled = "disabled" })
+        @Html.TextBoxFor(c => c.Cidade, new { @class = "form-control", disabled = "disabled" })
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.Logradouro)
@@ -54,11 +54,31 @@
     <script>
         $().ready(function () {
             /**/
-            
-            if ($("#Bolsa").attr("checked")=="checked") {
-                $("#Desconto").parent().css("display","block");
-            }else {
-                $("#Desconto").parent().css("display","none");
+            $("#Nome").blur(function () {
+                $.ajax({
+                    url: "http://localhost:51030/Aluno/ValidarNome",
+                    method: "GET",
+                    data: { nome: $("#Nome").val() },
+                    success: function (data) {
+                        if (data.existe) {
+                            var erro = $("span[data-valmsg-for=Nome]");
+                            erro.addClass("field-validation-error");
+                            erro.removeClass("field-validation-valid");
+                            erro.html("<span>Nome já cadastrado</span>");
+                            $("#brnSalva").prop("disabled", true);
+                        }
+                        else {
+                            $("#brnSalva").prop("disabled", false);
+                        }
+                    }
+                });
+            })
+
+
+            if ($("#Bolsa").attr("checked") == "checked") {
+                $("#Desconto").parent().css("display", "block");
+            } else {
+                $("#Desconto").parent().css("display", "none");
             }
             /**/
             $("#Bolsa").click(function () {
@@ -78,7 +98,7 @@
                 });
             });
         });
-        
+
     </script>
 
 }
