@@ -6,9 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Fiap.Exemplo02.Service.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AlunoController : ApiController
     {
         private UnitOfWork _unit = new UnitOfWork();
@@ -27,18 +29,33 @@ namespace Fiap.Exemplo02.Service.Controllers
         }
         public IHttpActionResult Post(Aluno aluno)
         {
-            _unit.AlunoRepository.Cadastrar(aluno);
-            _unit.Salvar();
-            var uri = Url.Link("DefaultApi", new { id = aluno.Id });
-            return Created<Aluno>(new Uri(uri), aluno);
+            if (ModelState.IsValid)
+            {
+                _unit.AlunoRepository.Cadastrar(aluno);
+                _unit.Salvar();
+                var uri = Url.Link("DefaultApi", new { id = aluno.Id });
+                return Created<Aluno>(new Uri(uri), aluno);
+            }
+            else
+            {
+                return BadRequest(ModelState);
 
+            }
         }
         public IHttpActionResult Put(int id, Aluno aluno)
         {
-            aluno.Id = id;
-            _unit.AlunoRepository.Alterar(aluno);
-            _unit.Salvar();
-            return Ok(aluno);
+            if (ModelState.IsValid)
+            {
+                aluno.Id = id;
+                _unit.AlunoRepository.Alterar(aluno);
+                _unit.Salvar();
+                return Ok(aluno);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+
+            }
         }
         public void Delete(int id)
         {
@@ -46,4 +63,5 @@ namespace Fiap.Exemplo02.Service.Controllers
             _unit.Salvar();
         }
     }
+    
 }
