@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Exemplo02.Repositories
 {
-    class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected PortalContext _context;
         protected DbSet<T> _dbSet;

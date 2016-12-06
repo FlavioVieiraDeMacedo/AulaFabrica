@@ -82,8 +82,19 @@ namespace Exemplo02.Controllers
                 if (VerificaNomeAlunoUnico(aluno.Nome))
                 {
                     _unit.AlunoRepository.Cadastrar(aluno);
-                    _unit.Salvar();
-                    return RedirectToAction("Cadastro", new { msg = "Aluno cadastradasso!" });
+                    try
+                    {
+                        _unit.Salvar();
+                        return RedirectToAction("Cadastro", new { msg = "Aluno cadastradasso!" });
+                    }
+                    catch (Exception e)
+                    {
+                        alunoViewModel.Mensagem = "Deu Ruim - " + e.Message;
+                        alunoViewModel.ListaGrupo = ListarGrupos();
+                        return View(alunoViewModel);
+                    }
+                    
+                    
                 }
                 else
                 {
