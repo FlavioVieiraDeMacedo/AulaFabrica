@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Exemplo02.Models;
 using Exemplo02.Repositories;
+using System.Data.Entity.Infrastructure;
 
 namespace Fiap.Exemplo02.Persistencia.Test
 {
@@ -33,8 +34,23 @@ namespace Fiap.Exemplo02.Persistencia.Test
                 Grupo=new Grupo() { Nome = "Grupo Teste"}
             };
             _repository.Cadastrar(aluno);
+            int r = _context.SaveChanges();
+            Assert.AreNotEqual(aluno.Id, 0);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(DbUpdateException))]
+        public void Grupo_Obrigatorio_Ok()
+        {
+            var aluno = new Aluno()
+            {
+                Nome = "Teste",
+                Bolsa = false,
+                DataNascimento = DateTime.Now,
+                Desconto = 10
+            };
+            _repository.Cadastrar(aluno);
             _context.SaveChanges();
         }
-        
+
     }
 }
